@@ -1,0 +1,16 @@
+This project is designed for cs460 final project.
+Author: Lu Ye, YilingDing, Mingjun Zhou
+
+Set up:
+get into WEB-INF/classes/dbcontroller make or make clean to clean all classfile
+open connection ./tomcat/bin/startup or ./tomcat/bin/shutdown to close connection from local to lectura on tomcat
+visit "localhost:port/index" to reach index page
+
+
+
+basic users set up for logging to and running functions:
+type: accountname, password
+manager: luye, pass
+employee: yiling, mima
+customer: mingjun, z
+

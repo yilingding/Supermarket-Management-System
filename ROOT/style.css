@@ -1,0 +1,145 @@
+/*<!-- this is the style for index page -->*/
+.index{
+	background-image: url("./images/background.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.mainContent{
+	text-align: center;
+	padding-top: 140px;
+}
+
+.index label{
+	display:inline-block;
+	width:40px;
+	margin-right:30px;
+	text-align:right;
+
+}
+
+.mainContent input{
+    width: 20%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+
+.mainContent button{
+	background-color: #4CAF50;
+	color: white;
+	font-size: 13px;
+	padding: 12px 20px;
+	margin: 12px 0;
+	border: none;
+	cursor: pointer;
+	width: 100px;
+}
+
+.createNew {
+	float: right;
+}
+.createNew input{
+	width: 100%;
+    padding: 12px 20px;
+   	display: inline-block;
+    border: 1px solid #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 13px;
+}
+/*register page*/
+.register {
+	background-image: url("./images/back.jpg");
+}
+.error {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+}
+.info {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;	
+}
+
+/*managerIndex page*/
+.managerIndex{
+	background-image: url("./images/back.jpg");
+	text-align: center;
+	padding-top: 140px;
+}
+
+/* manage user */
+.manageUser{
+	background-image: url("./images/back.jpg");
+	margin: 0 5%;
+}
+footer{
+	height: 50px;
+}
+
+.addUser{
+	text-align: center;
+}
+
+.addUser label{
+	display:inline-block;
+	width:80px;
+	margin-right:5px;
+	text-align:right;
+}
+.addUser input{
+    width: 20%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+.addUser button{
+	width: 100px;
+    padding: 12px 20px;
+   	display: inline-block;
+    border: 1px solid #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 13px;
+}
+/*employee Index*/
+.employeeIndex{
+	background-image: url("./images/back.jpg");
+	text-align: center;
+	padding-top: 140px;
+}
+
+/*empcheckout page*/
+.onlineorder{
+	background-image: url("./images/back.jpg");
+	text-align: center;
+	margin: 0 5%;
+	padding-top: 100px;
+}
+
+.instoreorder{
+	background-image: url("./images/back.jpg");
+	text-align: center;
+	margin: 0 5%;
+	padding-top: 100px;
+}
+
+.empcheckout, .storeStock, .submit, .order, .accInfo, .cart, .viewSOrder, .shoppingSite, .placeSOrder{
+	background-image: url("./images/back.jpg");
+	text-align: center;
+	margin: 0 5%;
+	padding-top: 20px;
+}
+
+.accInfo label{
+	display:inline-block;
+	width:150px;
+	margin-right:5px;
+	text-align:right;
+
+}

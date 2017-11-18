@@ -1,0 +1,205 @@
+----------------------------------------
+              Demo How-to
+----------------------------------------
+
+###################################################################
+        	1. Setup Tomcat Web Server on Lectura
+###################################################################		
+
+There are two steps you need to take to set up the software:
+
+1.  Copy the "tomcat" directory and HowTo.txt from /home/cs460/spring17/2017p4/
+    to your current directory.
+
+2.  edit the server.xml file in your conf subdirectory to set the port
+    numbers for your tomcat server
+
+> cp -r /home/cs460/spring17/2017p4/tomcat .
+
+(Note: all occurrences of the word 'username' refer to your own 
+personal username and hence should be substituted accordingly.)
+
+After copy the tomcat to your directory, you should have a directory structure 
+like the the following.
+
+ ~/tomcat $ls -l
+total 52K
+drwxr-xr-x 2   username username  4096 Nov 13 20:13 bin/
+drwxr-xr-x 2   username username  4096 Nov 13 20:13 conf/
+drwxrwxrwx 1   username username  4096 Nov 13 20:13 lib/
+-rwxr-xr-x 1   username username 11560 Nov 13 20:13 LICENSE*
+drwxr-xr-x 2   username username  4096 Nov 13 20:13 logs/
+-rwxr-xr-x 1   username username  6109 Nov 13 20:13 RELEASE-NOTES*
+drwxr-xr-x 2   username username  4096 Nov 13 20:13 temp/
+drwxr-xr-x 9   username username  4096 Nov 13 20:13 webapps/
+drwxr-xr-x 2   username username  4096 Nov 13 20:13 work/
+
+
+Now you need to edit conf/server.xml.  
+Do a grep on the string 'port=' as shown below.
+The grep returns four lines which include the string 'port='. 
+Only the following two lines with 'port=' settings need to be changed.
+
+
+ grep 'port=' conf/server.xml
+<Server port="17110" shutdown="SHUTDOWN">
+    <Connector port="27110" protocol="HTTP/1.1" 
+
+
+Port numbers have to be chosen carefully. If a port is in use by another
+process then the server will not be able to start.  I suggest using the adding the
+last 4 digits of your CSID to 10000 and 20000 respectively to obtain your
+port numbers
+
+<last four digits of CSID> + 10000
+
+for the last 'port=' setting and
+
+<last four digits of CSID> + 20000
+
+for the second, so that everyone running this project will be using
+unique port numbers.
+
+For example, if your CSID is 010033953 then the first 'port=' setting to be 13953, and the
+second 'port=' setting to be 23953.  Since each user has a unique UID,
+this convention should generate unique port numbers for everyone.
+
+********************************************************************************************
+Before you try to start/shutdown your tomcat, you should make sure the following
+enviroment variables are set:
+
+export JAVA_HOME=/usr/local/jdk
+export CATALINA_HOME=/home/mingjunz/tomcat
+
+echo $JAVA_HOME
+/usr/local/jdk
+echo $CATALINA_HOME
+/home/username/tomcat/
+
+Now try starting your tomcat server.  cd to the bin subdirectory and run
+
+ ./startup.sh
+
+You should see something like
+
+Using CATALINA_BASE:   /home/username/tomcat
+Using CATALINA_HOME:   /home/username/tomcat
+Using CATALINA_TMPDIR: /home/username/tomcat/temp
+Using JRE_HOME:       /usr/local/jdk
+
+Now point a web browser to
+
+http://lectura.cs.arizona.edu:<last four digits of CSID>+20000
+
+In our example, the link would be
+
+http://lectura.cs.arizona.edu:27569
+
+and you should see the default tomcat splash page.  Find the 'Servlet
+Examples' link on the left hand side of the page and try running a couple.
+
+If you now cd to your logs subdirectory, you should see something like
+
+~/tomcat/logs $ls -l
+total 12K
+-rw-r--r-- 1 username username     0 Nov 13 20:25 admin.2007-11-13.log
+-rw-r--r-- 1 username username  3093 Nov 13 20:34 catalina.2007-11-13.log
+-rw-r--r-- 1 username username  3093 Nov 13 20:34 catalina.out
+-rw-r--r-- 1 username username     0 Nov 13 20:25 host-manager.2007-11-13.log
+-rw-r--r-- 1 username username   692 Nov 13 20:34 localhost.2007-11-13.log
+-rw-r--r-- 1 username username     0 Nov 13 20:25 manager.2007-11-13.log
+
+and you can look in the logs to see what your server is doing.
+You should be mainly concerned with catalina.out.
+
+If you can't connect to your tomcat server, then check the port numbers;
+it's possible some other process already was bound to one of them.  Do
+that with the netstat command.
+
+ netstat -a | egrep '(17569|27569)’
+
+For example, nestat should return something like the following.
+
+0 *:27953                     *:*                         LISTEN      
+0 localhost.localdomain:17953 *:*                         LISTEN  
+
+
+The 'LISTEN' state means the server is listening for connections
+on those ports.
+
+If necessary, edit conf/server.xml to use free ports and try again.
+
+You can stop the server by cd'ing to the bin subdirectory and running
+
+./shutdown.sh
+
+That should print out something like
+
+Using CATALINA_BASE:   /home/username/tomcat
+Using CATALINA_HOME:   /home/username/tomcat
+Using CATALINA_TMPDIR: /home/username/tomcat/temp
+Using JRE_HOME:       /usr/local/jdk
+
+Running netstat should show nothing listening on those ports.
+
+
+###################################################################
+        	          2. Run the demo
+###################################################################
+
+We will name the Tomcat installation directory as $TOMCAT_HOME in
+the further instructions.
+
+1. If you already started the tomcat server, now please shut it down.
+
+   > $TOMCAT_HOME/bin/shutdown.sh
+   
+2. We will provide a very simple example that demonstrate how JSP works.
+   In general, all the web applications (including the welcome page) are
+   placed under "$TOMCAT_HOME/webapps/ROOT", in order to replace the
+   default pages with your application, you can simply rename the
+   existing "ROOT" dir and create a new empty "ROOT" dir.
+
+   > mv $TOMCAT_HOME/webapps/ROOT $TOMCAT_HOME/webapps/old_root
+   > mkdir $TOMCAT_HOME/webapps/ROOT
+
+3. Copy the provided example, which is located at "$TOMCAT_HOME/webapps/460demo",
+   to "$TOMCAT_HOME/webapps/ROOT".
+
+   > cp -r $TOMCAT_HOME/webapps/460demo/* $TOMCAT_HOME/webapps/ROOT/
+
+4. With in the ROOT you will see the application files. The files include
+   an "index.html" page, which is the front-end UI. This page containts a link in the
+   bottom part in red, and you can click on that. There is a "Sampleindex.jsp" file which
+   just provides the login window to the users (just provide the view). There is a 
+   "welcome.jsp" after you login the system. The script simply responds to the onClick
+   event of the button in the UI and calls "welcome.jsp" to finish the request.
+   
+5. Compile the wrapper class
+
+   > cd $TOMCAT_HOME/webapps/ROOT/WEB-INF/classes/dbController
+
+   IMPORTANT: You need to replace the username and password variables in the
+   DatabaseController() method with your own Oracle account name and password
+   before you compile.
+
+   > /usr/local/jdk/bin/javac DatabaseController.java
+
+6. Now you can restart the Tomcat server.
+   
+   > $TOMCAT_HOME/bin/startup.sh
+
+7. visit the demo application via web at:
+
+   http://lectura.cs.arizona.edu:$PORTNUMBER
+
+Note that every time a new .class file is generated, in order to
+let it take effect, you need to restart the Tomcat server.
+
+8. Shutdown the Tomcat server.
+   In order to free up server resources, please remember that after
+   testing, debugging and running your applications, you need to
+   shutdown the Tomcat server.
+
+   > $TOMCAT_HOME/bin/shutdown.sh
+
